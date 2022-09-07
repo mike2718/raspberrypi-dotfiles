@@ -111,3 +111,90 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+#### 自己添加部分
+
+# git快捷命令
+alias gitsocks='git -c http.proxy=socks5://127.0.0.1:7890'
+alias g='git'
+alias gs='git status'
+alias gb='git branch'
+alias gc='git checkout'
+alias gct='git commit --gpg-sign=17C22010D29A50BC'
+alias gg='git grep'
+alias ga='git add'
+alias gd='git diff'
+alias gl='git log'
+alias gcma='git checkout master'
+alias gfu='git fetch upstream'
+alias gfo='git fetch origin'
+alias gmod='git merge origin/develop'
+alias gmud='git merge upstream/develop'
+alias gmom='git merge origin/master'
+alias gcm='git commit -m'
+alias gpl='git pull'
+alias gp='git push'
+alias gpo='git push origin'
+alias gpom='git push origin master'
+alias gs='git status'
+alias gst='git stash'
+alias gsl='git stash list'
+alias gsu='git stash -u'
+alias gsp='git stash pop'
+
+
+alias lftp='lftp -u mike,123456 192.168.50.9'
+#alias tlmgr='/usr/share/texmf-dist/scripts/texlive/tlmgr.pl --usermode'
+
+# gpg
+alias gpglk='gpg --list-keys --keyid-format=long'
+alias gpglsk='gpg --list-secret-keys --keyid-format=long'
+alias gpge='gpg --encrypt --recipient 14F27367B1323515B1F61A815BDC731777049B5F'
+alias gpgd='gpg --decrypt'
+
+# 默认编辑器
+export VISUAL="/usr/bin/vim"
+export EDITOR="/usr/bin/vim"
+export SUDO_EDITOR="/usr/bin/vim"
+export PAGER="/usr/bin/less"
+
+# curl的代理只用这些环境变量
+#export http_proxy="http://127.0.0.1:7890"
+#export HTTPS_PROXY="http://127.0.0.1:7890"
+# 其他代理
+#export https_proxy="http://127.0.0.1:7890"
+#export HTTP_PROXY="${http_proxy}"
+
+# rar压缩参数
+#export RAR='-m5 -rr5 -s -md128 -ol'
+
+# 自用
+alias ls='ls -h -l --color=auto --time-style=+"%Y-%m-%d %H:%M"'
+alias l='ls -CF --color=auto'
+alias lh='ls -lh --color=auto'
+alias ll='ls -l --color=auto'
+alias la='ls -A --color=auto'
+alias l.='ls -d .* --color=auto'
+alias dir='ls -ba'
+alias cal='cal -S -m --color=auto'
+alias grep='grep --color=auto -i'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+alias diff='diff -rauN --color=auto'
+# 使用单词级别比较的diff
+#alias diff='git diff --no-index --color-words'
+alias ip='ip --color=auto'
+alias fdisk='fdisk --color'
+alias curl='curl --remove-on-error'
+
+# gnupg tty
+GPG_TTY=$(tty)
+export GPG_TTY
+
+umask 002
+
+# direnv钩子
+eval "$(direnv hook bash)"
+
+# vim模式行
+# vim: set et sw=4 sts=4 tw=80 ft=sh:
