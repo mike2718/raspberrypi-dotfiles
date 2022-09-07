@@ -87,12 +87,7 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 # colored GCC warnings and errors
-#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
-
-# some more ls aliases
-#alias ll='ls -l'
-#alias la='ls -A'
-#alias l='ls -CF'
+export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -134,8 +129,7 @@ export HISTTIMEFORMAT='%F %T '
 export HISTCONTROL=erasedups
 export HISTSIZE=10000
 export HISTFILESIZE=20000
-#export HISTIGNORE='history:pwd:ls:ls *:ll:w:top:df *:clear'      # 保存しないコマンド
-#export PROMPT_COMMAND='history -a; history -c; history -r' # 履歴のリアルタイム反映
+export PROMPT_COMMAND='history -a; history -c; history -r' # 履歴のリアルタイム反映
 
 # Mimic Zsh run-help ability
 run-help() { help "$READLINE_LINE" 2>/dev/null || man "$READLINE_LINE"; }
@@ -160,66 +154,6 @@ if [[ -t 0 ]]; then
   stty start undef
 fi
 
-# 自用命令别名
-alias c='clear'
-alias s='sync'
-alias e='exit'
-alias a='awk'
-alias g='grep'
-alias rm='rm -f'
-alias bc='bc -ql'
-alias cp='rsync --archive --compress -hh --info=stats1,progress2 --modify-window=1'
-#alias mv='rsync --archive --compress -hh --info=stats1,progress2 --modify-window=1 --remove-source-files'
-#alias mirror='rsync --archive --delete --compress -hh --info=stats1,progress2 --modify-window=1'
-alias wipe='shred -uvz'
-alias date='date +"%F %T"'
-alias lsblk='lsblk -o NAME,FSTYPE,SIZE,MOUNTPOINT,LABEL'
-alias astyle='astyle -A1 -p -s4 -xC80 -c'
-alias pcc='pcc -Wall -Wpedantic -Wextra -std=c99'
-alias gcc='gcc -Wall -Wpedantic -Wextra -std=c99'
-alias clang='clang -Wall -Wpedantic -Wextra -std=c99'
-#alias dd='dd conv=fsync oflag=direct status=progress'
-alias poweroff='sudo shutdown -h now'
-alias reboot='sudo shutdown -r now'
-
-# git快捷命令
-alias gitsocks='git -c http.proxy=socks5://127.0.0.1:7890'
-alias g='git'
-alias gs='git status'
-alias gb='git branch'
-alias gc='git checkout'
-alias gct='git commit --gpg-sign=17C22010D29A50BC'
-alias gg='git grep'
-alias ga='git add'
-alias gd='git diff'
-alias gl='git log'
-alias gcma='git checkout master'
-alias gfu='git fetch upstream'
-alias gfo='git fetch origin'
-alias gmod='git merge origin/develop'
-alias gmud='git merge upstream/develop'
-alias gmom='git merge origin/master'
-alias gcm='git commit -m'
-alias gpl='git pull'
-alias gp='git push'
-alias gpo='git push origin'
-alias gpom='git push origin master'
-alias gs='git status'
-alias gst='git stash'
-alias gsl='git stash list'
-alias gsu='git stash -u'
-alias gsp='git stash pop'
-
-
-alias lftp='lftp -u mike,123456 192.168.50.9'
-#alias tlmgr='/usr/share/texmf-dist/scripts/texlive/tlmgr.pl --usermode'
-
-# gpg
-alias gpglk='gpg --list-keys --keyid-format=long'
-alias gpglsk='gpg --list-secret-keys --keyid-format=long'
-alias gpge='gpg --encrypt --recipient 14F27367B1323515B1F61A815BDC731777049B5F'
-alias gpgd='gpg --decrypt'
-
 # 默认编辑器
 export VISUAL="/usr/bin/vim"
 export EDITOR="/usr/bin/vim"
@@ -237,23 +171,18 @@ export PAGER="/usr/bin/less"
 #export RAR='-m5 -rr5 -s -md128 -ol'
 
 # 自用
-alias ls='ls -h -l --color=auto --time-style=+"%Y-%m-%d %H:%M"'
-alias l='ls -CF --color=auto'
-alias lh='ls -lh --color=auto'
-alias ll='ls -l --color=auto'
-alias la='ls -A --color=auto'
-alias l.='ls -d .* --color=auto'
+alias ls='ls -h -l --time-style=+"%Y-%m-%d %H:%M"'
+alias l='ls -CF'
+alias lh='ls -lh'
+alias ll='ls -l'
+alias la='ls -A'
+alias l.='ls -d .*'
 alias dir='ls -ba'
-alias cal='cal -S -m --color=auto'
-alias grep='grep --color=auto -i'
-alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
-alias diff='diff -rauN --color=auto'
+alias cal='cal -S -m'
+alias diff='diff -rauN'
 # 使用单词级别比较的diff
 #alias diff='git diff --no-index --color-words'
-alias ip='ip --color=auto'
-alias fdisk='fdisk --color'
-alias curl='curl --remove-on-error'
+#alias curl='curl --remove-on-error'
 
 # gnupg tty
 GPG_TTY=$(tty)
