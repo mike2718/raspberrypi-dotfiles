@@ -1,4 +1,4 @@
-method.insert = cfg.basedir,  private|const|string, (cat,"/home/mike/rtorrent/")
+method.insert = cfg.basedir,  private|const|string, (cat,"/rtorrent/")
 method.insert = cfg.download, private|const|string, (cat,(cfg.basedir),"download/")
 method.insert = cfg.logs,     private|const|string, (cat,(cfg.basedir),"log/")
 method.insert = cfg.logfile,  private|const|string, (cat,(cfg.logs),"rtorrent-",(system.time),".log")
@@ -43,7 +43,7 @@ protocol.encryption.set = allow_incoming,try_outgoing,enable_retry
 #network.max_open_files.set = 600
 #network.max_open_sockets.set = 300
 
-pieces.memory.max.set = 4096M
+pieces.memory.max.set = 2048M
 network.xmlrpc.size_limit.set = 4M
 
 network.local_address.set = 127.0.0.1
@@ -81,16 +81,16 @@ print = (cat, "Logging to ", (cfg.logfile))
 log.open_file = "log", (cfg.logfile)
 log.add_output = "info", "log"
 
-network.scgi.open_port = "127.0.0.1:5050"
-#network.scgi.open_local = (cat,(session.path),/rpc.sock)
-#schedule2 = socket_chmod, 0, 0, "execute.nothrow=chmod,770,(cat,(session.path),/rpc.sock)"
+#network.scgi.open_port = "127.0.0.1:5000"
+network.scgi.open_local = (cat,(session.path),/rpc.sock)
+schedule2 = socket_chmod, 0, 0, "execute.nothrow=chmod,770,(cat,(session.path),/rpc.sock)"
 
 # finish email notify
-method.set_key = event.download.finished,notify_me,"execute2=/home/mike/bin/mail.sh,$d.name="
+#method.set_key = event.download.finished,notify_me,"execute2=/home/mike/bin/mail.sh,$d.name="
 
 #pieces.preload.type.set = 2
 
 # if you use btrfs, ext4, ocfs2, xfs file system you can enable this without having any performance impact.
-system.file.allocate.set = 0
+#system.file.allocate.set = 0
 
 # vim: set syntax=conf:

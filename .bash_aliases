@@ -1,7 +1,7 @@
 # ~/.bash_aliases
 #
 # ls系列
-alias ls='ls -h -l --time-style=+"%Y-%m-%d %H:%M" --color=auto'
+alias ls='ls -h -l --time-style=+"%F %H:%M" --color=auto'
 alias l='ls -CF --color=auto'
 alias lh='ls -lh --color=auto'
 alias ll='ls -l --color=auto'
