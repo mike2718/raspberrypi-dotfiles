@@ -3,3 +3,8 @@
 [user]
 	name = Mike Akiba
 	email = mike2718@gmail.com
+	signingkey = 17C22010D29A50BC
+[commit]
+	gpgsign = true
+[alias]
+	logs = log --show-signature
