@@ -1,0 +1,96 @@
+method.insert = cfg.basedir,  private|const|string, (cat,"/home/mike/rtorrent/")
+method.insert = cfg.download, private|const|string, (cat,(cfg.basedir),"download/")
+method.insert = cfg.logs,     private|const|string, (cat,(cfg.basedir),"log/")
+method.insert = cfg.logfile,  private|const|string, (cat,(cfg.logs),"rtorrent-",(system.time),".log")
+method.insert = cfg.session,  private|const|string, (cat,(cfg.basedir),".session/")
+method.insert = cfg.watch,    private|const|string, (cat,(cfg.basedir),"watch/")
+execute.throw = sh, -c, (cat,\
+    "mkdir -p \"",(cfg.download),"\" ",\
+    "\"",(cfg.logs),"\" ",\
+    "\"",(cfg.session),"\" ",\
+    "\"",(cfg.watch),"/load\" ",\
+    "\"",(cfg.watch),"/start\" ")
+
+network.port_range.set = 51960-51960
+network.port_random.set = no
+
+# enable DHT support
+dht.mode.set = auto
+dht.port.set = 56882
+protocol.pex.set = yes
+
+trackers.use_udp.set = yes
+
+#throttle.global_down.max_rate.set_kb = 8000
+#throttle.global_up.max_rate.set_kb   = 500
+throttle.global_down.max_rate.set_kb = 0
+throttle.global_up.max_rate.set_kb   = 0
+
+throttle.max_uploads.set = 8
+throttle.max_downloads.set = 50
+throttle.min_peers.normal.set = 40
+throttle.max_peers.normal.set = 52
+# Same as above but for seeding completed torrents
+throttle.min_peers.seed.set = 10
+throttle.max_peers.seed.set = 52
+trackers.numwant.set = 52
+
+protocol.encryption.set = allow_incoming,try_outgoing,enable_retry
+# stricter rule
+#protocol.encryption.set = require,require_RC4,allow_incoming,try_outgoing
+
+#network.http.max_open.set = 50
+#network.max_open_files.set = 600
+#network.max_open_sockets.set = 300
+
+pieces.memory.max.set = 4096M
+network.xmlrpc.size_limit.set = 4M
+
+network.local_address.set = 127.0.0.1
+#network.local_address.set = localhost
+
+session.path.set = (cat, (cfg.session))
+directory.default.set = (cat, (cfg.download))
+log.execute = (cat, (cfg.logs), "execute.log")
+execute.nothrow = sh, -c, (cat, "echo >",\
+    (session.path), "rtorrent.pid", " ",(system.pid))
+encoding.add = utf8
+system.umask.set = 0002
+system.cwd.set = (directory.default)
+
+schedule2 = low_diskspace,5,60,close_low_diskspace=100M
+
+# a full hash check after a torrent completes
+pieces.hash.on_completion.set = 1
+
+# CURL options to add support for nonofficial SSL trackers and peers
+network.http.ssl_verify_host.set = 0
+network.http.ssl_verify_peer.set = 0
+
+#network.http.dns_cache_timeout.set = 25
+
+method.insert = system.startup_time, value|const, (system.time)
+method.insert = d.data_path, simple,\
+    "if=(d.is_multi_file),\
+        (cat, (d.directory), /),\
+        (cat, (d.directory), /, (d.name))"
+method.insert = d.session_file, simple, "cat=(session.path), (d.hash), .torrent"
+schedule2 = watch_load, 11, 10, ((load.verbose, (cat, (cfg.watch), "load/*.torrent")))
+schedule2 = watch_start, 10, 10, ((load.start_verbose, (cat, (cfg.watch), "start/*.torrent")))
+print = (cat, "Logging to ", (cfg.logfile))
+log.open_file = "log", (cfg.logfile)
+log.add_output = "info", "log"
+
+network.scgi.open_port = "127.0.0.1:5050"
+#network.scgi.open_local = (cat,(session.path),/rpc.sock)
+#schedule2 = socket_chmod, 0, 0, "execute.nothrow=chmod,770,(cat,(session.path),/rpc.sock)"
+
+# finish email notify
+method.set_key = event.download.finished,notify_me,"execute2=/home/mike/bin/mail.sh,$d.name="
+
+#pieces.preload.type.set = 2
+
+# if you use btrfs, ext4, ocfs2, xfs file system you can enable this without having any performance impact.
+system.file.allocate.set = 0
+
+# vim: set syntax=conf:
