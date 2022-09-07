@@ -1,6 +1,21 @@
 # ~/.bash_aliases
 #
-# 自用命令别名
+# ls系列
+alias ls='ls -h -l --time-style=+"%Y-%m-%d %H:%M" --color=auto'
+alias l='ls -CF --color=auto'
+alias lh='ls -lh --color=auto'
+alias ll='ls -l --color=auto'
+alias la='ls -A --color=auto'
+alias l.='ls -d --color=auto .*'
+alias dir='dir --color=auto'
+
+
+alias cal='cal -S -m'
+alias diff='diff -rauN --color=auto'
+alias ip='ip --color=auto'
+# 使用单词级别比较的diff
+#alias diff='git diff --no-index --color-words'
+#alias curl='curl --remove-on-error'
 alias c='clear'
 alias s='sync'
 alias e='exit'

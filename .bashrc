@@ -170,20 +170,6 @@ export PAGER="/usr/bin/less"
 # rar压缩参数
 #export RAR='-m5 -rr5 -s -md128 -ol'
 
-# 自用
-alias ls='ls -h -l --time-style=+"%Y-%m-%d %H:%M"'
-alias l='ls -CF'
-alias lh='ls -lh'
-alias ll='ls -l'
-alias la='ls -A'
-alias l.='ls -d .*'
-alias dir='ls -ba'
-alias cal='cal -S -m'
-alias diff='diff -rauN'
-# 使用单词级别比较的diff
-#alias diff='git diff --no-index --color-words'
-#alias curl='curl --remove-on-error'
-
 # gnupg tty
 GPG_TTY=$(tty)
 export GPG_TTY
