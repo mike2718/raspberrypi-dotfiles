@@ -1,3 +1,4 @@
+#
 method.insert = cfg.basedir,  private|const|string, (cat,"/rtorrent/")
 method.insert = cfg.download, private|const|string, (cat,(cfg.basedir),"download/")
 method.insert = cfg.logs,     private|const|string, (cat,(cfg.basedir),"log/")
@@ -11,7 +12,7 @@ execute.throw = sh, -c, (cat,\
     "\"",(cfg.watch),"/load\" ",\
     "\"",(cfg.watch),"/start\" ")
 
-network.port_range.set = 51960-51960
+network.port_range.set = 51888-51888
 network.port_random.set = no
 
 # enable DHT support
@@ -43,7 +44,7 @@ protocol.encryption.set = allow_incoming,try_outgoing,enable_retry
 #network.max_open_files.set = 600
 #network.max_open_sockets.set = 300
 
-pieces.memory.max.set = 2048M
+pieces.memory.max.set = 1800M
 network.xmlrpc.size_limit.set = 4M
 
 network.local_address.set = 127.0.0.1
