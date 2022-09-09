@@ -121,6 +121,10 @@ if [[ $UID -ge 1000 && -d $HOME/.local/bin && -z $(echo "$PATH" | grep -o "$HOME
 fi
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
 
+# clang
+export PATH=/usr/local/clang_15.0.0/bin:$PATH
+export LD_LIBRARY_PATH=/usr/local/clang_15.0.0/lib/aarch64-unknown-linux-gnu:/usr/local/clang_15.0.0/lib:$LD_LIBRARY_PATH
+
 # 用上下键历史记录自动完成
 bind '"\e[A": history-search-backward'
 bind '"\e[B": history-search-forward'
